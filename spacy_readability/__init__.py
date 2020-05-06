@@ -6,9 +6,10 @@ __author__ = """Michael Holtzscher"""
 __email__ = "mholtz@protonmail.com"
 __version__ = "1.4.1"
 
-from math import sqrt
+from math import sqrt, log2
 from spacy.tokens import Doc
 import syllapy
+from collections import Counter
 
 from .words import DALE_CHALL_WORDS
 
@@ -57,6 +58,15 @@ class Readability:
 
         if not Doc.has_extension("forcast"):
             Doc.set_extension("forcast", getter=self.forcast)
+
+        if not Doc.has_extension("word_entropy"):
+            Doc.set_extension("word_entropy", getter=lambda x: self.word_entropy(x, lemmatized=False))
+
+        if not Doc.has_extension("word_entropy_l"):
+            Doc.set_extension("word_entropy_l", getter=lambda x: self.word_entropy(x, lemmatized=True))
+
+        if not Doc.has_extension("lix"):
+            Doc.set_extension("lix", getter=self.lix)
 
     def __call__(self, doc):
         """Apply the pipeline component to a `Doc` object.
@@ -170,6 +180,26 @@ class Readability:
                 mono_syllabic += 1
         return 20 - (mono_syllabic / 10)
 
+    def word_entropy(self, doc, lemmatized = False):
+        """Return word entropy for document"""
+        # filter out words
+        words = [token for token in doc if not token.is_punct and "'" not in token.text]
+        # create bag of words
+        if lemmatized:
+            list_words = [w.lemma_ for w in words]
+        else:
+            list_words = [w.text for w in words]
+        num_words = len(list_words)
+        word_freq = Counter(list_words)
+        return - sum([(word_freq[word]/num_words) * log2(word_freq[word]/num_words) for word in word_freq])
+
+    def lix(self, doc):
+        """Return lix measure for document"""
+        num_words = _get_num_words(doc)
+        num_sentences = _get_num_sentences(doc)
+        num_long_words = _get_num_long_words(doc, min_characters=7)
+        return num_words/num_sentences + 100 * num_long_words/num_words
+
 
 def _get_num_sentences(doc: Doc):
     """Return number of sentences in the document
@@ -182,7 +212,7 @@ def _get_num_words(doc: Doc):
     Filters punctuation and words that start with apostrophe (aka contractions)
     """
     filtered_words = [
-        word for word in doc if not word.is_punct and "'" not in word.text
+        word for word in doc if not word.is_punct
     ]
     return len(filtered_words)
 
@@ -194,3 +224,18 @@ def _get_num_syllables(doc: Doc, min_syllables: int = 1):
     text = (word for word in doc if not word.is_punct and "'" not in word.text)
     syllables_per_word = tuple(syllapy.count(word.text) for word in text)
     return sum(c for c in syllables_per_word if c >= min_syllables)
+
+def _get_num_periods(doc: Doc):
+
+    periods = [
+        word for word in doc if word.is_punct
+    ]
+    return len(periods)
+
+def _get_num_long_words(doc: Doc, min_characters = 7):
+    """Return the number of words with (more than) min_characters characters"""
+
+    filtered_words = [
+        word for word in doc if not word.is_punct and "'" not in word.text and len(word.text) >= min_characters
+    ]
+    return len (filtered_words)
