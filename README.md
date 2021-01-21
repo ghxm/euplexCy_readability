@@ -1,9 +1,9 @@
-spacy_readability
+spacy_readability for euplex
  ==================
  
   spaCy v2.0 pipeline component for calculating readability scores of of
  text. Provides scores for Flesh-Kincaid grade level, Flesh-Kincaid
- reading ease, Dale-Chall, and SMOG.
+ reading ease, Dale-Chall, and SMOG, Lix and word entropy.
  
   Installation
  ------------
