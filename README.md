@@ -9,7 +9,7 @@ spacy_readability for euplex
  ------------
  
   ``` {.sourceCode .python}
- pip install spacy-readability
+ pip install git+git://github.com/ghxm/spacy_readability.git#egg=spacy_readability
  ```
  
   Usage
