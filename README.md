@@ -31,6 +31,8 @@ spacy_readability for euplex
  print(doc._.coleman_liau_index)
  print(doc._.automated_readability_index)
  print(doc._.forcast)
+ print(doc._.word_entropy)
+ print(doc._.lix)
  ```
  
   ### Readability Scores
@@ -52,6 +54,8 @@ spacy_readability for euplex
  -   Coleman-Liau Index
  -   Automated Readability Index
  -   FORCAST
+ -   Word entropy
+ -   Lix score
  
   [For more in depth reading.](https://en.wikipedia.org/wiki/Readability)
 
