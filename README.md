@@ -9,7 +9,7 @@ spacy_readability for euplex
  ------------
  
   ``` {.sourceCode .python}
- pip install https://github.com/ghxm/spacy_euplex_readability/tarball/master
+ pip install https://github.com/ghxm/spacy_euplexdb_readability/tarball/master
  ```
  
   Usage
