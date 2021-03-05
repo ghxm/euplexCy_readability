@@ -213,7 +213,7 @@ class Readability:
 def _get_num_sentences(doc: Doc, min_sen_length=5):
     """Return number of sentences in the document
     """
-    return len([sent for sent in list(doc.sents) if len(sent.text.strip()<min_sen_length)])
+    return len([sent for sent in list(doc.sents) if len(sent.text.strip())<min_sen_length])
 
 
 def _get_num_words(doc: Doc):
