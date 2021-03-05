@@ -187,7 +187,7 @@ class Readability:
     def word_entropy(self, doc, lemmatized=False):
         """Return word entropy for document"""
         # filter out words
-        words = [token for token in doc if not token.is_punct and "'" not in token.text]
+        words = [token for token in doc if not token.is_punct and "'" not in token.text and not token.is_space]
         # create bag of words
         if lemmatized:
             list_words = [w.lemma_ for w in words]
@@ -210,17 +210,17 @@ class Readability:
         return num_words / num_sentences + 100 * num_long_words / num_words
 
 
-def _get_num_sentences(doc: Doc):
+def _get_num_sentences(doc: Doc, min_sen_length=5):
     """Return number of sentences in the document
     """
-    return len(list(doc.sents))
+    return len([sent for sent in list(doc.sents) if len(sent.strip()<min_sen_length)])
 
 
 def _get_num_words(doc: Doc):
     """Return number of words in the document.
     Filters punctuation and words that start with apostrophe (aka contractions)
     """
-    filtered_words = [word for word in doc if not word.is_punct]
+    filtered_words = [word for word in doc if not word.is_punct and and "'" not in word and not word.is_space]
     return len(filtered_words)
 
 
@@ -247,6 +247,6 @@ def _get_num_long_words(doc: Doc, min_characters=7):
         for word in doc
         if not word.is_punct
         and "'" not in word.text
-        and len(word.text) >= min_characters
+        and len(word.text.strip()) >= min_characters
     ]
     return len(filtered_words)
