@@ -10,10 +10,10 @@ ci-test:
 	poetry run codecov
 
 lint:
-	poetry run pylint spacy_readability
+	poetry run pylint euplexcy_readability
 
 mypy:
-	poetry run mypy spacy_readability
+	poetry run mypy euplexcy_readability
 
 format:
-	poetry run black spacy_readability tests
+	poetry run black euplexcy_readability tests

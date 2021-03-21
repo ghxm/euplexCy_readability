@@ -1,4 +1,4 @@
-spacy_readability for euplex
+spacy_readability for euplexCy
  ==================
  
   spaCy v2.0 pipeline component for calculating readability scores of of

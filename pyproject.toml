@@ -1,15 +1,15 @@
 [tool.poetry]
-name = "spacy_readability"
+name = "euplexcy_readability"
 version = "1.4.1"
 description = "spaCy pipeline component for adding text readability meta data to Doc objects."
-authors = ["Michael Holtzscher <mholtz@protonmail.com>"]
+authors = ["Michael Holtzscher <mholtz@protonmail.com>", "Maximilian Haag"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.6"
 syllapy = "^0"
-spacy = "^2.0"
+spacy = ">=2.0"
  
 [tool.poetry.dev-dependencies]
 pytest = "^3.9"

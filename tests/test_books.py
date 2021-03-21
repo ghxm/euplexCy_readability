@@ -3,7 +3,7 @@ import spacy
 import pytest
 import ftfy
 
-from spacy_readability import Readability
+from euplexcy_readability import Readability
 from .books import *
 
 

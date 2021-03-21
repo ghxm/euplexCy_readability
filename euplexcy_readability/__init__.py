@@ -19,7 +19,7 @@ class Readability:
     Provides scores for Flesh-Kincaid grade level, Flesh-Kincaid reading ease, and Dale-Chall.
     USAGE:
         >>> import spacy
-        >>> from spacy_readability import Readability
+        >>> from euplexcy_readability import Readability
         >>> nlp = spacy.load('en')
         >>> read = Readability()
         >>> nlp.add_pipe(read, last=True)

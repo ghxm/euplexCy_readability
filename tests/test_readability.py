@@ -2,7 +2,7 @@ import spacy
 import pytest
 
 from spacy.tokens import Doc
-from spacy_readability import (
+from euplexcy_readability import (
     Readability,
     _get_num_sentences,
     _get_num_syllables,
