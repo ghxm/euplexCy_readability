@@ -3,10 +3,10 @@ setup:
 	poetry run pre-commit install
 
 test:
-	poetry run pytest --cov=spacy_readability -q --disable-pytest-warnings tests/
+	poetry run pytest -q --disable-pytest-warnings tests/
 
 ci-test:
-	poetry run pytest tests/ --cov=spacy_readability --junitxml=junit/test-results.xml
+	poetry run pytest tests/  --junitxml=junit/test-results.xml
 	poetry run codecov
 
 lint:

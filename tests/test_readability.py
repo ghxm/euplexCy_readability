@@ -1,5 +1,6 @@
 import spacy
 import pytest
+from spacy.language import Language
 
 from spacy.tokens import Doc
 from euplexcy_readability import (
@@ -12,10 +13,11 @@ from euplexcy_readability import (
 
 @pytest.fixture(scope="function")
 def nlp():
-    return spacy.load("en")
+    return spacy.load("en_core_web_sm")
 
 
 @pytest.fixture(scope="function")
+@Language.component("read")
 def read():
     return Readability()
 

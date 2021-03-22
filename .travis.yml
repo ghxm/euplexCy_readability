@@ -18,7 +18,7 @@ install:
   - python get-poetry.py --preview -y
   - source $HOME/.poetry/env
   - poetry install -v
-  - python -m spacy download en
+  - python -m spacy download en_core_web_sm
 
 script: pytest -q tests/
 

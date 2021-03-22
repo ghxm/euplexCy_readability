@@ -9,8 +9,8 @@ from .books import *
 
 @pytest.fixture(scope="module")
 def nlp():
-    pipeline = spacy.load("en")
-    pipeline.add_pipe(Readability())
+    pipeline = spacy.load("en_core_web_sm")
+    pipeline.add_pipe("Readability")
     return pipeline
 
 

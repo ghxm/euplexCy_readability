@@ -9,11 +9,12 @@ __version__ = "1.4.1"
 from collections import Counter
 from math import sqrt, log2
 from spacy.tokens import Doc
+from spacy.language import Language
 import syllapy
 
 from .words import DALE_CHALL_WORDS
 
-
+@Language.factory("Readability")
 class Readability:
     """spaCy v2.0 pipeline component for calculating readability scores of of text.
     Provides scores for Flesh-Kincaid grade level, Flesh-Kincaid reading ease, and Dale-Chall.
@@ -35,7 +36,7 @@ class Readability:
 
     name = "readability"
 
-    def __init__(self):
+    def __init__(self, name, nlp):
         """Initialise the pipeline component.
         """
         if not Doc.has_extension("flesch_kincaid_grade_level"):
@@ -220,7 +221,7 @@ def _get_num_words(doc: Doc):
     """Return number of words in the document.
     Filters punctuation and words that start with apostrophe (aka contractions)
     """
-    filtered_words = [word for word in doc if not word.is_punct and "'" not in word and not word.is_space]
+    filtered_words = [word for word in doc if not word.is_punct and "'" not in word.text and not word.is_space]
     return len(filtered_words)
 
 
